@@ -11,13 +11,15 @@ class ChatGroup:
     def __init__(self, chat_id, name_group,
                  capacity_maximun=100,
                  date_creation=str(datetime.datetime.today()).split()[0],
-                 active=True):
+                 active=True,
+                 delay=11.1):
 
         self.chat_id = chat_id  # integer
         self.name_group = name_group  # string
         self.capacity_maximun = capacity_maximun  # integer
         self.date_creation = date_creation  # string
         self.active = active  # Boolean
+        self.delay = delay
 
         ChatGroup.__chats_created_counter += 1
 
@@ -56,4 +58,5 @@ class ChatGroup:
 
     @staticmethod
     def generateNewId():
+        print("Id nuevo generado para un chat grupal")
         return ChatGroup.__chats_created_counter + 1

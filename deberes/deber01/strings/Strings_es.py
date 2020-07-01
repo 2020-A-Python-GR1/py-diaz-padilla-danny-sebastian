@@ -11,6 +11,13 @@ dictionary_es = {
     "string_unknown": "Desconocido",
     "string_yes": "Si",
     "string_no": "No",
+    "string_search": "Buscar",
+    "string_create": "Crear",
+    "string_update": "Actualizar",
+    "string_delete": "Delete",
+    "string_details": "Detalles",
+    "text_create_grupal_chat": "Crear chat grupal",
+    "text_manage_integrants": "Administrar Integrantes",
     "format_summary_chat_group":
         """
         Chat id: %i
