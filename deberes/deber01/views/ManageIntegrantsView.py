@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter import messagebox
 
 from models.Integrant import Integrant
+from models.utils import advanced_compare_of_search
 from strings.Strings import Strings as s
 from variables import total_integrants
 from views.CreateIntegrantView import CreateIntegrantView
@@ -14,9 +15,13 @@ class ManageIntegrantsView:
         self.root = root
         self.frame = Frame(self.root)
         self.frame.pack()
+
+        self.frame.config(bg="#d5d98f")
+
+
         # ROW 0
-        Label(self.frame, text="Debug: Crear un integrante").grid(row=0, column=0, columnspan=2)
-        Button(self.frame, text="Debug: Crear", command=lambda: self.nav_to_create_integrant(Integrant.generateNewId())).grid(row=0, column=2)
+        Label(self.frame, text=s.dictionary["text_manage_of_integrants"]).grid(row=0, column=0, columnspan=2)
+        Button(self.frame, text=s.dictionary["string_create"], command=lambda: self.nav_to_create_integrant(Integrant.generateNewId())).grid(row=0, column=2)
 
         # ROW 1
         self.entry_search = StringVar()
@@ -32,8 +37,14 @@ class ManageIntegrantsView:
         Button(self.frame, text=s.dictionary['string_delete'], command=lambda: self.delete_selection(self.listbox.curselection())).grid(row=3, column=2)
         Button(self.frame, text=s.dictionary['string_details'], command=lambda: self.show_details(self.listbox.curselection())).grid(row=4, column=2)
 
-        Button(self.frame, text="Debug: Mostrar todo", command=self.load_data).grid(row=5, column=0, columnspan=2)
+        Button(self.frame, text=s.dictionary["text_update_list"], command=self.load_data).grid(row=5, column=0, columnspan=2)
         self.load_data()
+
+        Button(self.frame, bg="orange", text=s.dictionary["string_cancel"], command=self.close_windows).grid(row=5, column=2)
+
+
+    def close_windows(self):
+        self.root.destroy()
 
     def load_data(self):
         if self.listbox.size() > 0:
@@ -46,15 +57,20 @@ class ManageIntegrantsView:
         position = -1
 
         for i in range(self.listbox.size()):
-            if self.listbox.get(i).lower() == entry_search:
+            if advanced_compare_of_search(self.listbox.get(i), entry_search) is not None:
                 found = True
                 position = i
+                break  # siempre la primera respuesta
 
         if found:
+            actual_selection = self.listbox.curselection()
+            if self.is_valid_selection(actual_selection):
+                self.listbox.selection_clear(actual_selection[0])
+
             self.listbox.selection_set(position)
-            messagebox.showinfo(title="Debug: Busqueda", message="Debug: Encontrado y seleccionado")
+            messagebox.showinfo(title=s.dictionary['string_search'], message=s.dictionary['msg_search_found_and_selected'])
         else:
-            messagebox.showinfo(title="Debug: Busqueda", message="Debug: No hay busqueda")
+            messagebox.showinfo(title=s.dictionary['string_search'], message=s.dictionary['msg_search_not_found'])
 
     def nav_to_create_integrant(self, integrant_id):
         CreateIntegrantView(Toplevel(self.root), integrant_id)
@@ -63,17 +79,40 @@ class ManageIntegrantsView:
         if self.is_valid_selection(selection):
             UpdateIntegrantView(Toplevel(self.root), self.listbox.get(selection[0]))
         else:
-            messagebox.showinfo(title="Debug: Busqueda", message="Debug: Debe seleccionar un grupo antes")
+            messagebox.showinfo(title=s.dictionary['string_selection'], message=s.dictionary['msg_should_select_something_first'])
 
     def delete_selection(self, selection):
         if self.is_valid_selection(selection):
-            messagebox.showinfo(title="Debug: Eliminación", message="Debug: Eliminado")
-            self.listbox.delete(selection)
+
+            try:
+                total_integrants.pop(self.listbox.get(selection[0]))
+                Integrant.saveDataIntegrants(total_integrants)  # se guarda la eliminación
+                self.listbox.delete(selection)
+                messagebox.showinfo(title=s.dictionary['string_delete'], message=s.dictionary['msg_success_deleted'])
+            except KeyError as error:
+                self.load_data()
+                messagebox.showinfo(title=s.dictionary['string_details'], message=s.dictionary['text_dont_forget_to_update_try_again'])
+
+
+
         else:
-            messagebox.showinfo(title="Debug: Eliminación", message="Debug: Debe seleccionar un grupo antes")
+            messagebox.showinfo(title=s.dictionary['string_selection'], message=s.dictionary['msg_should_select_something_first'])
 
     def show_details(self, selection):
-        print(selection)
+        if self.is_valid_selection(selection):
+
+            try:
+                integrant = total_integrants[self.listbox.get(selection[0])]
+                messagebox.showinfo(title=s.dictionary['string_details'], message=integrant.read())
+
+            except KeyError as error:
+                self.load_data()
+                messagebox.showinfo(title=s.dictionary['string_details'], message=s.dictionary['text_dont_forget_to_update_try_again'])
+
+
+        else:
+            messagebox.showinfo(title=s.dictionary['string_selection'], message=s.dictionary['msg_should_select_something_first'])
+
 
     @staticmethod
     def is_valid_selection(selection):

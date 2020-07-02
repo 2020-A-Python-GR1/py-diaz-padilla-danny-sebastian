@@ -1,12 +1,17 @@
 from datetime import datetime
 
 from Parameters import Parameters  # para generar congruencia
+from models.PickleData import storeData, loadData
 from strings.Strings import Strings as s
+
+from random import random
 
 
 class Integrant:
 
-    __integrants_created_counter = 0
+    __integrants_created_counter = loadData(
+        Parameters.dir_relative_files_total_integrants + Parameters.filename_total_integrants_created) if loadData(
+        Parameters.dir_relative_files_total_integrants + Parameters.filename_total_integrants_created) != dict() else 0
 
     states = {
         Parameters.key_state_connected: 1,
@@ -19,6 +24,7 @@ class Integrant:
         self.date_creation = date_creation  # string
         self.state = state  # Integer. Definido en el diccionario de arriba
         self.allowed_to_talk = allowed_to_talk  # Boolean
+        self.participation_score = random()  # Float
 
         Integrant.__integrants_created_counter += 1
 
@@ -28,7 +34,8 @@ class Integrant:
         return s.dictionary['format_summary_integrant'] % \
                (self.integrant_id, self.user_name, self.date_creation,
                 self.readStateInWords(),
-                s.dictionary['string_yes'] if self.allowed_to_talk else s.dictionary['string_no'])
+                s.dictionary['string_yes'] if self.allowed_to_talk else s.dictionary['string_no'],
+                self.participation_score)
 
     def readStateInWords(self):
         if self.state == 1:
@@ -57,3 +64,13 @@ class Integrant:
     @staticmethod
     def generateNewId():
         return Integrant.__integrants_created_counter + 1
+
+    @classmethod
+    def saveDataIntegrants(cls, total_integrants):
+        storeData(total_integrants, Parameters.dir_relative_files_total_integrants + Parameters.filename_total_integrants)
+        storeData(Integrant.__integrants_created_counter,
+                  Parameters.dir_relative_files_total_integrants + Parameters.filename_total_integrants_created)
+
+    @classmethod
+    def loadDataIntegrants(cls):
+        return loadData(Parameters.dir_relative_files_total_integrants + Parameters.filename_total_integrants)
