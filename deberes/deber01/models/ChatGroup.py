@@ -1,12 +1,15 @@
 import datetime
+
+from Parameters import Parameters
+from models.PickleData import storeData, loadData
 from strings.Strings import Strings as s
 
 
 class ChatGroup:
+    __chats_created_counter = loadData(
+        Parameters.dir_relative_files_groups_chat + Parameters.filename_chats_created) if loadData(
+        Parameters.dir_relative_files_groups_chat + Parameters.filename_chats_created) != dict() else 0
 
-    __chats_created_counter = 0  # Variable estática
-
-    integrants = []  # de Tipo Integrant
 
     def __init__(self, chat_id, name_group,
                  capacity_maximun=100,
@@ -20,16 +23,25 @@ class ChatGroup:
         self.date_creation = date_creation  # string
         self.active = active  # Boolean
         self.delay = delay
-
+        self.integrants = []
         ChatGroup.__chats_created_counter += 1
+
+
 
     # CRUD Operations
     # create ya es el constructor
     def read(self):
+        output_integrants = ""
+        if len(self.integrants) == 0:
+            output_integrants = s.dictionary['string_none']
+
+        for integrant in self.integrants:
+            output_integrants += s.dictionary['format_id_user_integrant'] % (integrant.user_name, integrant.integrant_id)
+
         return s.dictionary['format_summary_chat_group'] % \
-               (self.chat_id, self.name_group, self.capacity_maximun,
-                self.date_creation,
-                s.dictionary['string_yes'] if self.active else s.dictionary['string_no'])
+            (self.chat_id, self.name_group, self.capacity_maximun,
+             self.date_creation, s.dictionary['string_yes'] if self.active else s.dictionary['string_no'],
+             self.delay, output_integrants)
 
     def update_chat_id(self, new_chat_id):
         self.chat_id = new_chat_id  # integer
@@ -58,5 +70,14 @@ class ChatGroup:
 
     @staticmethod
     def generateNewId():
-        print("Id nuevo generado para un chat grupal")
         return ChatGroup.__chats_created_counter + 1
+
+    @classmethod
+    def saveDataChatGroups(cls, groups_chat):
+        storeData(groups_chat, Parameters.dir_relative_files_groups_chat + Parameters.filename_groups_chat)
+        storeData(ChatGroup.__chats_created_counter,
+                  Parameters.dir_relative_files_groups_chat + Parameters.filename_chats_created)
+
+    @classmethod
+    def loadDataChatGroups(cls):
+        return loadData(Parameters.dir_relative_files_groups_chat + Parameters.filename_groups_chat)
