@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="02e9dd8a-724b-4b27-a2e5-54ea49671525" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/deber01/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/deber01/app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/deber01/files/groups/groups_chat" beforeDir="false" afterPath="$PROJECT_DIR$/deber01/files/groups/groups_chat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/deber01/files/groups/groups_created_reference_id" beforeDir="false" afterPath="$PROJECT_DIR$/deber01/files/groups/groups_created_reference_id" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/deber01/files/integrants/integrants_created_reference_id" beforeDir="false" afterPath="$PROJECT_DIR$/deber01/files/integrants/integrants_created_reference_id" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/deber01/views/ManageIntegrantsView.py" beforeDir="false" afterPath="$PROJECT_DIR$/deber01/views/ManageIntegrantsView.py" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="1eXqI9mccSDHph9DVQi2o3qIk1l" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="0" y="0" key="SettingsEditor" timestamp="1594478235254">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="0" y="0" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1594478235254" />
+  </component>
+</project>

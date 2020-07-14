@@ -1,10 +1,11 @@
 from tkinter import *
 from tkinter import messagebox
 
+from models.ChatGroup import ChatGroup
 from models.Integrant import Integrant
 from models.utils import advanced_compare_of_search
 from strings.Strings import Strings as s
-from variables import total_integrants
+from variables import total_integrants, group_chats
 from views.CreateIntegrantView import CreateIntegrantView
 from views.UpdateIntegrantView import UpdateIntegrantView
 
@@ -85,9 +86,21 @@ class ManageIntegrantsView:
         if self.is_valid_selection(selection):
 
             try:
+
+                for key, group in group_chats.items():
+
+                    for integrant in group.integrants:
+
+                        if integrant.user_name == self.listbox.get(selection[0]):
+                            group_chats[key].integrants.remove(integrant)
+                            ChatGroup.saveDataChatGroups(group_chats)
+
+
+
                 total_integrants.pop(self.listbox.get(selection[0]))
                 Integrant.saveDataIntegrants(total_integrants)  # se guarda la eliminación
                 self.listbox.delete(selection)
+
                 messagebox.showinfo(title=s.dictionary['string_delete'], message=s.dictionary['msg_success_deleted'])
             except KeyError as error:
                 self.load_data()
