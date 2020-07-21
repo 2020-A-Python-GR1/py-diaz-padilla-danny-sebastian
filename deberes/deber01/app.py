@@ -1,8 +1,6 @@
-from Parameters import Parameters  # para generar congruencia
 
 
 from tkinter import *
-
 from views.MainView import MainView
 
 
