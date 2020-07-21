@@ -118,8 +118,22 @@ print(ciudades_uno.head(2))
 print(ciudades_uno.tail(2))
 
 
+print(ciudades_uno.sort_values(ascending=False).head(2))
+print(ciudades_uno.sort_values().tail(2))
 
 
+def calcular(valor_serie):
+    
+    if valor_serie <= 1000:
+        return valor_serie * 1.05
+    if valor_serie > 1000 and valor_serie <= 5000:
+        return valor_serie * 1.10
+    if valor_serie > 5000:
+        return valor_serie * 1.15
+
+
+
+ciudad_calculada = ciudades_uno.map(calcular)
 
 
 
