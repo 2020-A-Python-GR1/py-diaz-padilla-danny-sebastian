@@ -1,11 +1,9 @@
-from random import randint, shuffle, choice
-from tkinter import Frame, Label, Button, Tk, PhotoImage, Canvas
+from random import choice, randint
+from tkinter import Tk, Canvas
 from copy import deepcopy
 from PIL import Image, ImageTk
 import numpy as np
 
-import scipy.misc
-import matplotlib.pyplot as plt
 
 from utils import divide_image_in_matrix_mxn, detect_image_part, verify_movement
 
@@ -13,13 +11,16 @@ movimientos = 0
 
 ANCHO = 600
 ALTO = 600
-dim_rows = 2
-dim_cols = 2
-part_to_dissapear_row = 0 # randint(0, dim_rows - 1)
-part_to_dissapear_col = 0 # randint(0, dim_cols - 1)
+dim_rows = int(input("Cuantas filas? (debe ser mayor a 1): "))
+dim_cols = int(input("Cuantas columnas? (debe ser mayor a 1): "))
+
+assert dim_rows > 1, "El valor de filas debe ser mayor a 1"
+assert dim_cols > 1, "El valor de columnas debe ser mayor a 1"
+part_to_dissapear_row = randint(0, dim_rows - 1)
+part_to_dissapear_col = randint(0, dim_cols - 1)
 print("Desaparecerá: ", part_to_dissapear_row, part_to_dissapear_col)
 
-image_directory = "images/test.png"
+image_directory = "images/puzzle.jpg"
 
 image = Image.open(image_directory)
 image = image.resize((ANCHO, ALTO))
@@ -31,8 +32,10 @@ indexes = [[None for _ in range(dim_cols)] for _ in range(dim_rows)]
 # print(image_parts_rgb_array[0][0].shape)
 
 
+en_juego = True
+
 def click_canvas(event):
-    global movimientos, canvas, simulation_part_to_dissapear_row, simulation_part_to_dissapear_col
+    global en_juego, movimientos, canvas, simulation_part_to_dissapear_row, simulation_part_to_dissapear_col
 
     clicked_row, clicked_col = detect_image_part(event.x, event.y, dim_rows, dim_cols, ANCHO, ALTO)
 
@@ -41,7 +44,7 @@ def click_canvas(event):
     print("Posicion clickeada [i][j]", clicked_row, clicked_col)
     print("Se puede mover", can_move)
     print("La pieza pulsada se moverá hacia", direction)
-    if can_move:
+    if can_move and en_juego:
         movimientos += 1
         x1_white = simulation_part_to_dissapear_col*(ANCHO//dim_cols)
         y1_white = simulation_part_to_dissapear_row*(ALTO//dim_rows)
@@ -71,7 +74,7 @@ def click_canvas(event):
                         text="Ha completado el juego")
             canvas.create_text(200, 50, fill="darkblue",font="Times 25 italic bold",
                         text="Con " + str(movimientos) + " movimientos")
-
+            en_juego = False
         else:
             canvas.create_rectangle(x1_part, y1_part, x2_part, y2_part, fill='white', width=0)
 

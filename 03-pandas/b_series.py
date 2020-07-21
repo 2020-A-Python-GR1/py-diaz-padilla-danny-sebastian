@@ -58,6 +58,85 @@ serie_valor_ciudad["Quito"] -= 50
 
 
 
+print('Lima' in serie_valor_ciudad)
+
+
+svc_cuadrado = np.square(serie_valor_ciudad)
+
+
+ciudades_uno = pd.Series({
+    "Montañita": 300,
+    "Guayaquil": 10000,
+    "Quito": 2000
+    })
+
+ciudades_dos = pd.Series({
+    "Loja": 300,
+    "Guayaquil": 10000
+    })
+
+
+ciudades_uno["Loja"] = 0
+
+print(ciudades_uno + ciudades_dos)
+
+
+ciud_concat = pd.concat([
+    ciudades_uno,
+    ciudades_dos
+    ])
+
+ciud_concat_verify = pd.concat([
+    ciudades_uno,
+    ciudades_dos
+    ], verify_integrity=False)
+
+ciud_concat_verify = ciudades_uno.append(
+    ciudades_dos
+    , verify_integrity=False)
+
+
+# sub()
+# mul()
+# div()
+print("FUNCIONES UNIVERSALES\n\n")
+print(ciudades_uno.max())
+print(pd.Series.max(ciudades_uno))
+print(np.max(ciudades_uno))
+
+print(ciudades_uno.min())
+print(pd.Series.min(ciudades_uno))
+print(np.min(ciudades_uno))
+
+
+print(ciudades_uno.mean())
+print(ciudades_uno.median())
+print(np.average(ciudades_uno))
+
+
+print(ciudades_uno.head(2))
+print(ciudades_uno.tail(2))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
