@@ -20,7 +20,7 @@ part_to_dissapear_row = randint(0, dim_rows - 1)
 part_to_dissapear_col = randint(0, dim_cols - 1)
 print("Desaparecerá: ", part_to_dissapear_row, part_to_dissapear_col)
 
-image_directory = "images/puzzle.jpg"
+image_directory = "images/one_piece.jpg"
 
 image = Image.open(image_directory)
 image = image.resize((ANCHO, ALTO))
@@ -70,9 +70,9 @@ def click_canvas(event):
 
         if indexes == indexes_random:
             canvas.create_image(x1_part, y1_part, anchor="nw", image=image_parts[clicked_row][clicked_col])
-            canvas.create_text(200, 20, fill="darkblue",font="Times 25 italic bold",
+            canvas.create_text(200, 20, fill="black",font="Times 25 italic bold",
                         text="Ha completado el juego")
-            canvas.create_text(200, 50, fill="darkblue",font="Times 25 italic bold",
+            canvas.create_text(200, 50, fill="black",font="Times 25 italic bold",
                         text="Con " + str(movimientos) + " movimientos")
             en_juego = False
         else:
@@ -159,7 +159,7 @@ is_mixed = False
 
 while not is_mixed:
 
-    for _ in range((dim_cols * dim_rows) - 1):  # máximo número de movimientos posibles sin repetición
+    for _ in range(10):  # máximo número de movimientos posibles sin repetición
         move_random()
 
     if indexes != indexes_random:

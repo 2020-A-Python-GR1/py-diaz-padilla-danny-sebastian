@@ -136,18 +136,22 @@ def calcular(valor_serie):
 ciudad_calculada = ciudades_uno.map(calcular)
 
 
+resultado = ciudades_uno.where(ciudades_uno < 1000, ciudades_uno * 1.05) 
+
+
+series_numeros = pd.Series(['1.0', '2', -3])
+print(pd.to_numeric(series_numeros))
+print(pd.to_numeric(series_numeros, downcast="integer"))
+print(pd.to_numeric(series_numeros, downcast="unsigned"))
 
 
 
 
+print("TEST ERRORES")
+series_numeros_err = pd.Series(['no tiene', '1.0', '2', -3])
 
-
-
-
-
-
-
-
+print(pd.to_numeric(series_numeros_err, errors="ignore"))
+print(pd.to_numeric(series_numeros_err, errors="coerce"))
 
 
 
