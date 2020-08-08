@@ -157,21 +157,31 @@ items_no_comunes = pd.concat([
 
 
 
+#16) ¿Como obtener el numero de veces que se repite un valor en una serie?
 
-##############
-## 16) ¿Como obtener el numero de veces que se repite un valor en una serie?
 ser = pd.Series(np.take(list('abcdefgh'), np.random.randint(8, size=30)))
 
+resp, counts = np.unique(ser, return_counts=True)
+
+resp = dict(zip(resp, counts))
 
 
+#17) ¿Como mantener los 2 valores mas repetidos de una serie, y a los 
+# demas valores cambiarles por 0 ?
 
-## 17) ¿Como mantener los 2 valores mas repetidos de una serie, y a los demas valores cambiarles por 0 ?
-
-
-np.random.RandomState(100)
 ser = pd.Series(np.random.randint(1, 5, [12]))
 
-####################
+df=pd.DataFrame(ser,columns=['values'])
+top_dos_valores=df['values'].value_counts().head(2)
+
+indices=top_dos_valores.index
+
+count=ser.map(top_dos_valores)
+
+indices_cero=np.isnan(count)
+count[indices_cero]=0
+resp2 = pd.concat([ser, count], axis=1)
+resp2[indices_cero]=0
 
 
 
@@ -204,26 +214,18 @@ print(valor_serie_por_posicion)
 
 
 
-## 20) ¿Como anadir series vertical u horizontalmente a un DataFrame?
-
-
-
+#20) ¿Como anadir series vertical u horizontalmente a un DataFrame?
 ser1 = pd.Series(range(5))
 ser2 = pd.Series(list('abcde'))
 
-# nueva columna
-df3 = pd.DataFrame(ser1)
-df3[1] = ser2
+df0 = pd.concat([pd.DataFrame(ser1),ser2], ignore_index = True)
 
 
+df1 = pd.DataFrame().append(ser1, ignore_index=True).append(ser2, ignore_index=True)
 
 
-
-## 21)¿Obtener la media de una serie agrupada por otra serie?
-
-# `groupby` tambien esta disponible en series.
-
-
+#21)¿Obtener la media de una serie agrupada por otra serie?
+#groupby tambien esta disponible en series.
 
 frutas = pd.Series(np.random.choice(['manzana', 'banana', 'zanahoria'], 10))
 pesos = pd.Series(np.linspace(1, 10, 10))
@@ -239,19 +241,12 @@ print(frutas.tolist())
 # dtype: float64
 
 
+resp21 = pd.concat([frutas, pesos], axis = 1)
 
+resp21 = resp21.groupby(resp21[0], as_index=False)[1].mean()
 
-## 22)¿Como importar solo columnas especificas de un archivo csv?
+#22)¿Como importar solo columnas especificas de un archivo csv?
+url = 'https://raw.githubusercontent.com/selva86/datasets/master/BostonHousing.csv'
 
-# https://raw.githubusercontent.com/selva86/datasets/master/BostonHousing.csv.
-
-
-
-
-
-
-
-
-
-
+resp22=pd.read_csv(url,usecols = ['crim','zn','indus','tax','medv'])
 
