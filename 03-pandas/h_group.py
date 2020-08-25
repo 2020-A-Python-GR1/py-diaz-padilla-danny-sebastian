@@ -56,7 +56,8 @@ def llenar_valores_vacios(series, tipo):
             series_valores_llenos = series.fillna(promedio)
             return series_valores_llenos
         if(tipo == 'mas_repetido'):
-            pass
+            series_valores_llenos = series.fillna(series.mode()[0])
+            return series_valores_llenos
             
 
 def transformar_df(df):
@@ -69,6 +70,7 @@ def transformar_df(df):
         serie_h = copia_df['height']
         serie_u = copia_df['units']
         serie_i = copia_df['title']
+        
         
         copia_df.loc[:, 'width']  = llenar_valores_vacios(
             serie_w, 
