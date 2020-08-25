@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Scrapy </title>
+    <style>
+        /*
+        ID
+            # + nombreID
+        */
+        #titulo-uno{
+            background-color: aqua;
+        }
+        /*
+        NOMBRE-ETIQUETA
+            nombre-etiqueta
+        */
+        h1{
+            background-color: green;
+        }
+        body{
+            color: brown;
+        }
+        p{
+            background-color: blue;
+        }
+        /*
+        Clase
+            . + nombre-clase
+        */
+        .fondo-rojo{
+            background-color: red;
+        }
+        .fondo-verde{
+            background-color: green;
+        }
+        .fondo-amarillo{
+            background-color: yellow;
+        }
+        /*
+        Jerarquia
+            style > ID > etiqueta > clase
+        */
+
+        li > p {
+            background-color: violet;
+        }
+
+        
+        li > p.epn.uno {
+            background-color: green;
+        }
+
+        li > p.epn {
+            background-color: red
+        }
+        
+        body > ul > li > p {
+            background-color: pink;
+        }
+
+    </style>
+</head>
+<body>
+    <h1 id="titulo-uno"> TÍTULO </h1>
+    <h1> Otro título </h1>
+    <h1 class="fondo-rojo"> Tercer título </h1>
+    <p> Párrafo uno </p>
+    <p 
+    class="fondo-amarillo fondo-rojo fondo-verde"
+    style="background-color: black;"
+    > Párrafo dos </p>
+    <p class="fondo-rojo"> Párrafo tres </p>
+
+    <ul>
+        <li> <p class="epn uno"> Cero </p> </li>
+        
+        <li> Uno </li>
+        <li> <p> Dos </p> </li>
+        <li> Tres </li>
+        
+        <li> <p class="epn"> Cuatro </p> </li>
+    </ul>
+
+    <li> <p> Fuera de UL </p></li>
+
+
+
+    
+</body>
+</html>
