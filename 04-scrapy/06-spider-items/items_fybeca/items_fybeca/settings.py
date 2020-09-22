@@ -64,9 +64,10 @@ ROBOTSTXT_OBEY = True
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
-#    'items_fybeca.pipelines.ItemsFybecaPipeline': 300,
-#}
+ITEM_PIPELINES = {  # a menos número mayor prioridad de pipeline 
+    'items_fybeca.pipelines.SoloCapsulasPipeline': 300,
+    'items_fybeca.pipelines.TransformarTituloAMinusculas': 200,
+}
 
 FEED_FORMAT = 'json'
 FEED_URI = 'tmp/productos-fybeca.json'
