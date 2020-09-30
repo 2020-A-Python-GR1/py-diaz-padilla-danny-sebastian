@@ -1,0 +1,110 @@
+.center {
+    text-align: center;
+    margin: 0 auto;
+
+}
+
+.form-eshop {
+    margin: 0 auto;
+    padding-left: 50px;
+    padding-right: 50px;
+    background-color: #bcc6f5;
+    width: 60%;
+}
+
+.text-grey {
+    color: #9d9ea3;
+}
+
+.button-panel {
+    color: black;
+    width: 200px;
+    height: 100px;
+    margin: 10px;
+    font-size: 40px;
+
+
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+#div_products {
+    margin-left: 4%;
+    margin-right: 4%;
+}
+#div_orders {
+    margin-left: 4%;
+    margin-right: 4%;
+}
+#div_users {
+    margin-left: 4%;
+    margin-right: 4%;
+}
+
+
+.container-chart {
+    width: 100%;
+    height: 100%;
+
+
+}
+
+.chart {
+    display: inline;
+    width: 49%;
+    height: 50%;
+}
+.center_horizontal {
+
+				text-align: center;
+				margin-left: auto;
+				margin-right: auto;
+			}
+
+			.center_vertical {
+				position: relative;
+			  top: 40%;
+			  -ms-transform: translateY(-50%);
+			  transform: translateY(-50%);
+			  background: pink;
+			}
+
+			.container_multiple_box {
+
+				width: 100%;
+				display: flex;
+
+			}
+
+			.box_inside {
+				width: 80%;
+				display: inline;
+			}
+
+			.container_vertical_align {
+
+			    height: 200px;
+			}
+
+			.news {
+			    border: 1px solid black;
+			    width: 20%;
+			    height: 400px;
+				display: inline;
+				overflow: scroll;
+			}
+
+			.div_new {
+
+			    margin-left: 1px;
+			    margin-right: 1px;
+			    margin-bottom: 5px;
+
+			    width: 100%;
+			    border: 1px solid gray;
+			    display: block;
+
+			}
